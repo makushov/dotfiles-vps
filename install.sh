@@ -32,7 +32,7 @@ need_sudo apt-get update -qq
 PACKAGES=(
   git curl wget unzip stow
   zsh tmux htop
-  fzf bat ripgrep fd-find
+  fzf bat ripgrep
   jq delta rename p7zip-full
   build-essential
 )
@@ -51,6 +51,15 @@ if command_exists fdfind && ! command_exists fd; then
   mkdir -p "$HOME/.local/bin"
   ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
   info "Created fd → fdfind symlink"
+fi
+
+# ── 1.1. fzf (свежая версия через git) ────────────────────────────────────
+if [ ! -d "$HOME/.fzf" ]; then
+  info "Installing fzf..."
+  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+  "$HOME/.fzf/install" --all --no-update-rc
+else
+  info "fzf already installed, skipping"
 fi
 
 # ── 2. eza ────────────────────────────────────────────────────────────
