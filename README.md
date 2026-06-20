@@ -9,7 +9,7 @@ Terminal dotfiles for Ubuntu VPS. Catppuccin Mocha fixed dark theme throughout.
 | zsh + oh-my-zsh | autosuggestions, syntax-highlighting, web-search |
 | Starship | Catppuccin Mocha prompt |
 | tmux | Catppuccin plugin, CPU/RAM in statusbar, TPM |
-| Neovim | No LSP/Mason — treesitter, telescope, neo-tree, lualine, noice, lazygit, gitsigns, yazi, trouble, and more |
+| Neovim | treesitter, telescope, neo-tree, lualine, noice, lazygit, gitsigns, yazi, trouble, and more |
 | git | delta pager, aliases |
 | htop | pre-configured |
 
