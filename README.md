@@ -11,29 +11,35 @@ Terminal dotfiles for Ubuntu VPS. Catppuccin Mocha fixed dark theme throughout.
 | tmux | Catppuccin plugin, CPU/RAM in statusbar, TPM |
 | Neovim | treesitter, telescope, neo-tree, lualine, noice, lazygit, gitsigns, yazi, trouble, and more |
 | git | delta pager, aliases |
+| yazi | Catppuccin Mocha theme |
 | htop | pre-configured |
 
 ## Install
 
-```bash
-bash <(curl -sSfL https://raw.githubusercontent.com/makushov/dotfiles-vps/main/install.sh)
-```
+Two scripts — system setup requires sudo, user setup does not.
 
-Or manually:
+### Step 1 — system packages (once per VPS, sudo user only)
 
 ```bash
-git clone https://github.com/makushov/dotfiles-vps.git ~/.dotfiles-vps
-cd ~/.dotfiles-vps
-bash install.sh
+bash <(curl -sSfL https://raw.githubusercontent.com/makushov/dotfiles-vps/main/install-system.sh)
 ```
+
+Installs: `neovim` `starship` `eza` `yazi` `lazygit` `bat` `ripgrep` `fd` `jq` `delta` `7zip` `build-essential` and other apt packages.
+
+### Step 2 — user setup (run as each user)
+
+```bash
+bash <(curl -sSfL https://raw.githubusercontent.com/makushov/dotfiles-vps/main/install-user.sh)
+```
+
+Installs: `oh-my-zsh` `fzf` `zoxide` `lazydocker` `TPM`, clones repo, applies dotfiles via Stow.
 
 ## After install
 
-1. Start tmux → `prefix + I` to install plugins
+1. Start tmux → `prefix + I` to install plugins (TPM)
 2. Open `nvim` — lazy.nvim installs everything on first launch
-3. `git config --global user.name "Your Name"`
-4. `git config --global user.email "you@example.com"`
-
-## Tools installed
-
-`zsh` `tmux` `neovim` `starship` `fzf` `bat` `eza` `zoxide` `yazi` `htop` `lazygit` `lazydocker` `ripgrep` `fd` `jq` `delta` `7zip`
+3. Set git identity per user:
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "you@example.com"
+   ```
