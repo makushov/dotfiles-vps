@@ -12,9 +12,12 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-info()  { echo -e "${GREEN}[info]${NC}  $*"; }
-warn()  { echo -e "${YELLOW}[warn]${NC}  $*"; }
-error() { echo -e "${RED}[error]${NC} $*"; exit 1; }
+info() { echo -e "${GREEN}[info]${NC}  $*"; }
+warn() { echo -e "${YELLOW}[warn]${NC}  $*"; }
+error() {
+  echo -e "${RED}[error]${NC} $*"
+  exit 1
+}
 
 need_sudo() {
   if [[ $EUID -eq 0 ]]; then "$@"; else sudo "$@"; fi
@@ -31,6 +34,7 @@ PACKAGES=(
   zsh tmux htop
   fzf bat ripgrep fd-find
   jq delta rename p7zip-full
+  build-essential
 )
 
 need_sudo apt-get install -y "${PACKAGES[@]}"
@@ -53,10 +57,10 @@ fi
 if ! command_exists eza; then
   info "Installing eza..."
   need_sudo apt-get install -y gpg
-  wget -qO - https://raw.githubusercontent.com/eza-community/eza/main/deb.asc \
-    | need_sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-  echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" \
-    | need_sudo tee /etc/apt/sources.list.d/gierens.list > /dev/null
+  wget -qO - https://raw.githubusercontent.com/eza-community/eza/main/deb.asc |
+    need_sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" |
+    need_sudo tee /etc/apt/sources.list.d/gierens.list >/dev/null
   need_sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
   need_sudo apt-get update -qq
   need_sudo apt-get install -y eza
@@ -107,8 +111,8 @@ fi
 # ── 7. lazygit ────────────────────────────────────────────────────────
 if ! command_exists lazygit; then
   info "Installing lazygit..."
-  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" \
-    | grep '"tag_name"' | sed 's/.*"v\(.*\)".*/\1/')
+  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" |
+    grep '"tag_name"' | sed 's/.*"v\(.*\)".*/\1/')
   wget -qO /tmp/lazygit.tar.gz \
     "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
   tar -xzf /tmp/lazygit.tar.gz -C /tmp lazygit
@@ -121,8 +125,8 @@ fi
 # ── 8. lazydocker ─────────────────────────────────────────────────────
 if ! command_exists lazydocker; then
   info "Installing lazydocker..."
-  curl -sSfL https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh \
-    | DIR="$HOME/.local/bin" bash
+  curl -sSfL https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh |
+    DIR="$HOME/.local/bin" bash
 else
   info "lazydocker already installed, skipping"
 fi
