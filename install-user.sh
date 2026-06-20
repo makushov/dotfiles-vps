@@ -25,6 +25,8 @@ else
   info "fzf already installed, skipping"
 fi
 
+export PATH="$HOME/.fzf/bin:$PATH"
+
 # ── 2. zoxide ─────────────────────────────────────────────────────────
 if ! command_exists zoxide; then
   info "Installing zoxide..."
@@ -37,8 +39,8 @@ fi
 if ! command_exists lazydocker; then
   info "Installing lazydocker..."
   curl -sSfL \
-    https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh \
-    | DIR="$HOME/.local/bin" bash
+    https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh |
+    DIR="$HOME/.local/bin" bash
 else
   info "lazydocker already installed, skipping"
 fi
