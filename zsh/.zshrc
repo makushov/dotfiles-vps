@@ -36,6 +36,7 @@ export FZF_DEFAULT_OPTS=" \
   --multi"
 
 # ── PATH ─────────────────────────────────────────────────────────────
+export PATH="$HOME/.fzf/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # ── Tools ────────────────────────────────────────────────────────────
