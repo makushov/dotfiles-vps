@@ -36,10 +36,17 @@ Installs: `oh-my-zsh` `fzf` `zoxide` `lazydocker` `TPM`, clones repo, applies do
 
 ## After install
 
-1. Start tmux → `prefix + I` to install plugins (TPM)
-2. Open `nvim` — lazy.nvim installs everything on first launch
-3. Set git identity per user:
+1. Reload your shell: `exec zsh` (or reconnect via SSH) — required after `chsh` for the new shell to take effect in the current session
+2. Start tmux → `prefix + I` to install plugins (TPM)
+3. Open `nvim` — lazy.nvim installs everything on first launch
+4. Set git identity per user:
    ```bash
    git config --global user.name "Your Name"
    git config --global user.email "you@example.com"
    ```
+
+> If `install-user.sh` couldn't run `chsh` (no password set, no sudo), have a sudo user run:
+> ```bash
+> sudo chsh -s $(which zsh) <username>
+> ```
+
