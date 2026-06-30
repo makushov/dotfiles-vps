@@ -68,13 +68,15 @@ else
   info "Neovim already installed, skipping"
 fi
 
-# ── 4. yazi ───────────────────────────────────────────────────────────
+# ── 4. yazi (musl build — works across Ubuntu glibc versions) ────────
+# Also installs `ya`, the yazi CLI companion required by yazi.nvim.
 if ! command_exists yazi; then
   info "Installing yazi..."
   wget -qO /tmp/yazi.zip \
-    "https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip"
+    "https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-musl.zip"
   unzip -q /tmp/yazi.zip -d /tmp/yazi-bin
-  $SUDO install -m 755 /tmp/yazi-bin/yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/yazi
+  $SUDO install -m 755 /tmp/yazi-bin/yazi-x86_64-unknown-linux-musl/yazi /usr/local/bin/yazi
+  $SUDO install -m 755 /tmp/yazi-bin/yazi-x86_64-unknown-linux-musl/ya /usr/local/bin/ya
   rm -rf /tmp/yazi.zip /tmp/yazi-bin
 else
   info "yazi already installed, skipping"
